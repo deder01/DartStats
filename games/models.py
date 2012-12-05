@@ -6,7 +6,7 @@ class ShanghiGame(models.Model):
   num_players = models.IntegerField(default=2)
 
 class ShanghiPlayer(models.Model):
-  player_num = models.IntegerField()
+  player_num = models.IntegerField(default=1)
   game = models.ForeignKey(ShanghiGame, related_name="players")
   player = models.ForeignKey(User, related_name="shangi_games")
   ten = models.IntegerField(default=0)
