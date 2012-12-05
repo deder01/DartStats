@@ -13,5 +13,5 @@ def addTen(request):
     p1.save()
   else:
     form = addTenForm()
-  player_list = ShanghiPlayer.objects.all()
+  player_list = ShanghiPlayer.objects.all().order_by('id')
   return render_to_response('index.html', context_instance=RequestContext(request, {'form': form, 'player_list':player_list}))
