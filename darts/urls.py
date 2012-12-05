@@ -1,4 +1,4 @@
-from django.conf.urls.default import *
+from django.conf.urls import patterns, include, url
 from games.views import *
 
 # Uncomment the next two lines to enable the admin:
@@ -7,8 +7,7 @@ from games.views import *
 
 urlpatterns = patterns('',
     # Examples:
-    #('^hello/$', hello),
-    #url(r'^$', 'games.views.getPlayers'),
+    url(r'^$', 'games.views.getPlayers'),
     # url(r'^darts/', include('darts.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -7,5 +7,5 @@ def hello(request):
   return HttpResponse("Hello World")
 
 def getPlayers(request):
-  player_list = ShanghiPlayers.objects.all()
+  player_list = ShanghiPlayer.objects.all()
   return render_to_response('index.html', {'player_list': player_list})
