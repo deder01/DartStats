@@ -155,3 +155,5 @@ LOGGING = {
         },
     }
 }
+if os.getcwd() == "/app":
+    DATABASES = {'default': dj_database_url.config()
