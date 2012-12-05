@@ -8,7 +8,7 @@ from forms import *
 def addTen(request):
   form = addTenForm(request.POST)
   if form.is_valid():
-    p1 = ShanghiPlayer.objects.all()[0]
+    p1 = ShanghiPlayer.objects.all().order_by("id")[0]
     p1.ten = p1.ten + form.cleaned_data['tens']
     p1.save()
   else:
