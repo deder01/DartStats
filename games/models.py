@@ -15,6 +15,7 @@ class ShanghiPlayer(models.Model):
 
 class ShanghiRound(models.Model):
   round_number = models.IntegerField()
-  number_of_darts = models.IntegerField()
-  number_of_hits = models.IntegerField()
+  singles = models.IntegerField(default=0)
+  doubles = models.IntegerField(default=0)
+  triples = models.IntegerField(default=0)
   shanghiplayer = models.ForeignKey(ShanghiPlayer, related_name="rounds")
