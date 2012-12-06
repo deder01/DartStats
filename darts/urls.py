@@ -7,7 +7,7 @@ from games.views import *
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'games.views.addTen'),
+    url(r'^(?P<gameid>\d+)$', 'games.views.addScore'),
     # url(r'^darts/', include('darts.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -1,5 +1,7 @@
 from django import forms
 
-class addTenForm(forms.Form):
-  tens = forms.IntegerField()
+class addScoreForm(forms.Form):
+  singles = forms.IntegerField()
+  doubles = forms.IntegerField()
+  triples = forms.IntegerField()
 

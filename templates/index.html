@@ -1,15 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="/" method="post">{% csrf_token %}
+{% if game.done == 0 %}
+<form action="/{{ game.id }}" method="post">{% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Submit" />
 </form>
+{% endif %}
+{{ game.id }} <br />
+{{ game.name }} <br />
+{{ game.done }} <br />
 <table>
-{% for player in player_list %}
-  
-  {% for x in player.scores_as_list %}
-    <li>{{ x }}</li>
+  <th> Round </th>
+  {% for p in player_list %}
+  <th>{{ p.player.first_name }}</th>
   {% endfor %}
+{% for row in matrix%}
+   <tr>
+  {% for c in row  %}
+    <td>{{ c }}</td>
+  {% endfor %}
+  </tr>
 {% endfor %}
 {% endblock %}
+</table>
