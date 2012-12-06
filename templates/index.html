@@ -5,7 +5,11 @@
   {{ form.as_p }}
   <input type="submit" value="Submit" />
 </form>
+<table>
 {% for player in player_list %}
-<li>{{ player.ten}}</li>
+  
+  {% for x in player.scores_as_list %}
+    <li>{{ x }}</li>
+  {% endfor %}
 {% endfor %}
 {% endblock %}
