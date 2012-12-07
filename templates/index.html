@@ -1,23 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if game.done == 0 %}
-<form action="/{{ game.id }}" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit" />
-</form>
-{% endif %}
-<table>
-  <th> Round </th>
-  {% for p in player_list %}
-  <th>{{ p.player.first_name }}</th>
-  {% endfor %}
-{% for row in matrix%}
-   <tr>
-  {% for c in row  %}
-    <td>{{ c }}</td>
-  {% endfor %}
-  </tr>
-{% endfor %}
+  <h1> Hello World!</h1>
+  <a href="shanghigame/1">Test Game</a>
 {% endblock %}
 </table>

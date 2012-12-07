@@ -5,6 +5,9 @@ from django.template.context import RequestContext
 from models import *
 from forms import *
 
+def Home(request):
+  return render_to_response('index.html')
+
 def addScore(request,gameid):
   form = addScoreForm(request.POST)
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
@@ -49,7 +52,7 @@ def addScore(request,gameid):
     i+=1
   matrix.append(['Total'])
   for p in player_list: matrix[i].append(p.total)
-  return render_to_response('index.html', context_instance=RequestContext(request, {'form': form,
+  return render_to_response('/shanghigames/index.html', context_instance=RequestContext(request, {'form': form,
                                                                                     'player_list':player_list,
                                                                                      'matrix':matrix,
                                                                                      'game':game}))
