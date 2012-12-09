@@ -2,11 +2,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from django.contrib.auth import authenticate, login
 from models import *
 from forms import *
 
 def Home(request):
   return render_to_response('index.html')
+
 
 def addScore(request,gameid):
   form = addScoreForm(request.POST)
@@ -52,7 +54,24 @@ def addScore(request,gameid):
     i+=1
   matrix.append(['Total'])
   for p in player_list: matrix[i].append(p.total)
-  return render_to_response('/shanghigames/index.html', context_instance=RequestContext(request, {'form': form,
+  return render_to_response('shanghigames/index.html', context_instance=RequestContext(request, {'form': form,
                                                                                     'player_list':player_list,
                                                                                      'matrix':matrix,
                                                                                      'game':game}))
+
+def Login(request):
+  form = LoginForm(request.POST)
+  if form.is_valid():
+    username = form.cleaned_data['username']
+    password = form.cleaned_data['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+      login(request, user)
+      name = user.name
+      return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':name}))
+    else:
+      return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':password}))
+  else:
+    form = LoginForm()
+    return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':'Guest'}))
+  
