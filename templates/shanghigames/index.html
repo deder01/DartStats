@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if game.done == 0 %}
-<form action="/{{ game.id }}" method="post">{% csrf_token %}
+<form action="{{ game.id }}" method="post">{% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Submit" />
 </form>
