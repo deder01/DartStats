@@ -9,10 +9,6 @@ from forms import *
 def Home(request):
   return render_to_response('index.html')
 
-def Navbar(request):
-  return ender_to_response('navbar.html')
-
-
 def addScore(request,gameid):
   form = addScoreForm(request.POST)
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
