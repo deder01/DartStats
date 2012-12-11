@@ -6,7 +6,9 @@
   <input type="submit" value="Submit" />
 </form>
 {% endif %}
-<table>
+Round: {{ game.current_round }} <br />
+Player: {{ game.current_player }} <br />
+<table class="table">
   <th> Round </th>
   {% for p in player_list %}
   <th>{{ p.player.first_name }}</th>

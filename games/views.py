@@ -33,9 +33,6 @@ def addScore(request,gameid):
     game.current_round = cr
     game.save()
     r.save()
-
-  else:
-    form = addScoreForm()
   matrix = []
   i=0
   while i<12:
@@ -53,7 +50,8 @@ def addScore(request,gameid):
     i+=1
   matrix.append(['Total'])
   for p in player_list: matrix[i].append(p.total)
-  return render_to_response('shanghigames/index.html', context_instance=RequestContext(request, {'form': form,
+  form = addScoreForm()
+  return render_to_response('shanghigame.html', context_instance=RequestContext(request, {'form': form,
                                                                                     'player_list':player_list,
                                                                                      'matrix':matrix,
                                                                                      'game':game}))
@@ -67,10 +65,10 @@ def Login(request):
     if user is not None:
       login(request, user)
       name = user.first_name + " " + user.last_name
-      return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':name}))
     else:
-      return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':password}))
+      name = password
   else:
     form = LoginForm()
-    return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':'Guest'}))
+    name = 'Guest'
+  return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':name}))
   
