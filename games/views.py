@@ -9,6 +9,9 @@ from forms import *
 def Home(request):
   return render_to_response('index.html')
 
+def Navbar(request):
+  return ender_to_response('navbar.html')
+
 
 def addScore(request,gameid):
   form = addScoreForm(request.POST)
@@ -67,7 +70,7 @@ def Login(request):
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
-      name = user.name
+      name = user.first_name + " " + user.last_name
       return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':name}))
     else:
       return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':password}))
