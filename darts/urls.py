@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^$', 'games.views.Home'),
     url(r'^shanghigames/(?P<gameid>\d+)$', 'games.views.addScore'),
     url(r'^login$', 'games.views.Login'),
+    url(r'^logout$', 'games.views.Logout'),
     # url(r'^darts/', include('darts.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

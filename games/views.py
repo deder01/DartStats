@@ -1,13 +1,13 @@
 # Create your views here.
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import *
 from django.template.context import RequestContext
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from models import *
 from forms import *
 
 def Home(request):
-  return render_to_response('index.html')
+  return render_to_response('index.html', context_instance=RequestContext(request, {}))
 
 def addScore(request,gameid):
   form = addScoreForm(request.POST)
@@ -57,18 +57,20 @@ def addScore(request,gameid):
                                                                                      'game':game}))
 
 def Login(request):
-  form = LoginForm(request.POST)
-  if form.is_valid():
-    username = form.cleaned_data['username']
-    password = form.cleaned_data['password']
+  if request.method == 'POST':
+    username = request.POST['username']
+    password = request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
       name = user.first_name + " " + user.last_name
     else:
-      name = password
+      name = username 
   else:
-    form = LoginForm()
     name = 'Guest'
-  return render_to_response('login.html', context_instance=RequestContext(request, {'form':form, 'name':name}))
-  
+  return render_to_response('login.html', context_instance=RequestContext(request))
+
+
+def Logout(request):
+  logout(request)
+  return redirect('games.views.Home')

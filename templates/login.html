@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-Hello {{ name }} <br />
-<form action="" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Login!" />
-</form>
+Hello {{ request.user.first_name }} {{ request.user.last_name }} <br />
 {% endblock %}
 
