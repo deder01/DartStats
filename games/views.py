@@ -70,7 +70,7 @@ def Login(request):
       name = username 
   else:
     name = 'Guest'
-  return render_to_response('login.html', context_instance=RequestContext(request))
+  return redirect('games.views.Home')
 
 
 def Logout(request):
