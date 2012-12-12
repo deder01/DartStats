@@ -23,6 +23,7 @@ def addScore(request,gameid):
     r.triples = int(request.POST['triples'])
     justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
     justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
+    ac = justshot.accuracy
     justshot.save()
     if cp == game.num_players:
       if cr == 21:
