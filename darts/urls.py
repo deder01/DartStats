@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^shanghigames/undo/(?P<gameid>\d+)$', 'games.views.Undo'),
     url(r'^login$', 'games.views.Login'),
     url(r'^logout$', 'games.views.Logout'),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+                {'document_root':settings.STATIC_ROOT}),
     # url(r'^darts/', include('darts.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
