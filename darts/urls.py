@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from django.conf import settings
 from games.views import *
+from django.conf 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^shanghigames/undo/(?P<gameid>\d+)$', 'games.views.Undo'),
     url(r'^login$', 'games.views.Login'),
     url(r'^logout$', 'games.views.Logout'),
-    url(r'^static/(?P.*)$', 'django.views.static.serve',
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root':settings.STATIC_ROOT}),
     # url(r'^darts/', include('darts.foo.urls')),
 
