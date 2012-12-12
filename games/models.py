@@ -13,6 +13,7 @@ class ShanghiPlayer(models.Model):
   game = models.ForeignKey(ShanghiGame, related_name="players")
   player = models.ForeignKey(User, related_name="shangi_games")
   total = models.IntegerField(default=0)
+  accuracy = models.DecimalField(max_digits=4, decimal_places=4, default=0)
 
 class ShanghiRound(models.Model):
   round_number = models.IntegerField()

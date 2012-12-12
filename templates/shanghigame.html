@@ -1,13 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
 {% if game.done == 0 %}
-<form action="{{ game.id }}" method="post">{% csrf_token %}
-  {{ form.as_p }}
+{%if game.current_round == 21 %}
+<h1> Round: Bullseyes </h1>
+{% else %}
+<h1> Round: {{ game.current_round }}</h1>
+{% endif %}
+<h1> Player: {{ current_player.player.first_name }} </h1>
+
+<div class="span2">
+<form action="{{ game.id }}" method="post" class="form-horizontal pull-left">{% csrf_token %}
+  <div class="control-group pull-left">
+    <label class="control-label pull-left" for="singles">Singles</label>
+    <div class="controls">
+      <select id="singles" name="singles" class="span1">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+      </select>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="doubles">Doubles</label>
+    <div class="controls">
+      <select id="doubles" name="doubles" class="span1">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+      </select>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="triples">Triples</label>
+    <div class="controls">
+      <select id="singles" name="triples" class="span1">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+      </select>
+    </div>
+  </div>
   <input type="submit" value="Submit" />
 </form>
+{% else %}
+<div class="span2">
 {% endif %}
-Round: {{ game.current_round }} <br />
-Player: {{ game.current_player }} <br />
+<form action="/shanghigames/undo/{{ game.id }}">
+  <input type="submit" value="Undo Last Throw" />
+</form>
+</div>
 <table class="table">
   <th> Round </th>
   {% for p in player_list %}

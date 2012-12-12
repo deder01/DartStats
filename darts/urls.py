@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'games.views.Home'),
     url(r'^shanghigames/(?P<gameid>\d+)$', 'games.views.addScore'),
+    url(r'^shanghigames/undo/(?P<gameid>\d+)$', 'games.views.Undo'),
     url(r'^login$', 'games.views.Login'),
     url(r'^logout$', 'games.views.Logout'),
     # url(r'^darts/', include('darts.foo.urls')),
