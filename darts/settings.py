@@ -5,7 +5,7 @@ import dj_database_url
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_ROOT_PATH=(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT_PATH=(os.path.dirname(os.path.realpath(__name__)))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
