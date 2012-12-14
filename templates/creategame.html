@@ -37,8 +37,8 @@
     <label class="control-label pull-left" for="player1">Player 3</label>
     <div class="controls">
       <select id="player3" name="player3" class="span2">
-        {% for p in player_list %}
          <option value=""> </option>
+        {% for p in player_list %}
         <option value="{{ p.id }} "> {{ p.first_name }} {{ p.last_name }}</option>
         {% endfor %}
       </select>

@@ -13,7 +13,13 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
+import sys
+import site
 import os
+
+root_path = os.path.abspath(os.path.split(__file__)[0])
+sys.path.insert(0, os.path.join(root_path, 'darts'))
+sys.path.insert(0, root_path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "darts.settings")
 
