@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>
+<form action="makenewgame" method="post" class="form-horizontal pull-left span3">{% csrf_token %}
+  <div class="control-group pull-left">
+    <label class="control-label pull-left" for="name">Game Name</label>
+    <div id="control">
+      <input  type="text" name="name" class="name">
+    </div>
+  </div>
+ 
+ <div class="control-group pull-left">
+    <label class="control-label pull-left" for="player1">Player 1</label>
+    <div class="controls">
+      <select id="player1" name="player1" class="span2">
+        {% for p in player_list %}
+        <option value="{{ p.id }}"> {{ p.first_name }} {{ p.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  
+  <div class="control-group pull-left">
+    <label class="control-label pull-left" for="player2">Player 2</label>
+    <div class="controls">
+      <select id="player2" name="player2" class="span2">
+        {% for p in player_list %}
+        <option value="{{ p.id }} "> {{ p.first_name }} {{ p.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  
+
+  <div class="control-group pull-left">
+    <label class="control-label pull-left" for="player1">Player 3</label>
+    <div class="controls">
+      <select id="player3" name="player3" class="span2">
+        {% for p in player_list %}
+         <option value=""> </option>
+        <option value="{{ p.id }} "> {{ p.first_name }} {{ p.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  
+ <div class="control-group pull-left">
+    <label class="control-label pull-left" for="player4">Player 4</label>
+    <div class="controls">
+      <select id="player4" name="player4" class="span2">
+          <option value=""> </option>
+        {% for p in player_list %}
+        <option value="{{ p.id }} "> {{ p.first_name }} {{ p.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn">Create!</button>
+</form> 
+{% endblock %}

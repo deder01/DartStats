@@ -11,7 +11,7 @@ def Home(request):
 
 def addScore(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
-  player_list = ShanghiPlayer.objects.all().order_by('id')
+  player_list = game.players.all().order_by('id')
   game.done = 0
   cp = int(game.current_player)
   cr = int(game.current_round)
@@ -106,3 +106,34 @@ def Undo(request,gameid):
   theround.save()
   game.save()
   return redirect('games.views.addScore', gameid=gameid)
+
+def SetUpShanghi(request):
+  player_list = User.objects.all().order_by('first_name')
+  return render_to_response('creategame.html', context_instance=RequestContext(request,
+                                                                              {'player_list':player_list
+                                                                                }))
+                                                                              
+def CreateShanghi(request):
+  player1 = request.POST['player1']
+  player2 = request.POST['player2']
+  player3 = request.POST['player3']
+  player4 = request.POST['player4']
+  name = request.POST['name']
+  p1 = User.objects.all().filter(id=player1)[0]
+  p2 = User.objects.all().filter(id=player2)[0]
+  player_list = [p1, p2]
+  if player3 != "": 
+    p3 = User.objects.all().filter(id=player3)[0]
+    player_list.append(p3)
+  if player4 != "":
+    p4 = User.objects.all().filter(id=player4)[0]
+    player_list.append(p4)
+  newgame = ShanghiGame(name=name, num_players=len(player_list))
+  newgame.save()
+  for p in player_list:
+    x = ShanghiPlayer(player=p, game=newgame)
+    x.save()
+    for i in range(0,12):
+      r = ShanghiRound(round_number=i+10, shanghiplayer=x)
+      r.save()
+  return redirect('games.views.addScore', gameid=newgame.id)
