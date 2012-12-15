@@ -6,7 +6,7 @@ class ShanghiGame(models.Model):
   done = models.IntegerField(default=0)
   num_players = models.IntegerField(default=2)
   current_round = models.IntegerField(default=10)
-  current_player = models.IntegerField(default=2)
+  current_player = models.IntegerField(default=1)
 
 class ShanghiPlayer(models.Model):
   player_num = models.IntegerField(default=1)

@@ -142,8 +142,8 @@ def Stats(request):
   high_score = []
   for u in User.objects.all():
     total = 0
-    for s in u.shanghi_games.all():
+    for s in u.shanghigames.all():
       total += s.total
     high_score.append([u, total])
-  high_score.sort(key=lambda x: x[1])
+  high_score.sort(key=lambda x: x[1], reverse=True)
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score}))

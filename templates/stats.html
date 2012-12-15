@@ -4,14 +4,13 @@
   <h2> Highest Score </h1>
   <table class="table">
     <th> Player </th>
-    <th> Scre </th>
+    <th> Score </th>
   {% for row in high_score %}
     <tr>
     {% for c in row %}
-      <td> c </td>
+    <td> {{ c }} </td>
     {% endfor %}
   </tr>
   {% endfor %}
 </table>
-
-</table>L
+{% endblock %}
