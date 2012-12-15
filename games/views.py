@@ -11,11 +11,11 @@ def Home(request):
 
 def addScore(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
-  player_list = game.players.all().order_by('id')
+  player_list = game.players.all().order_by('player_num')
   game.done = 0
   cp = int(game.current_player)
   cr = int(game.current_round)
-  justshot=ShanghiPlayer.objects.all()[cp-1]
+  justshot=game.players.all()[cp-1]
   if request.method == 'POST':
     r = player_list[cp-1].rounds.all()[cr-10]
     r.singles = int(request.POST['singles'])
@@ -139,11 +139,22 @@ def CreateShanghi(request):
   return redirect('games.views.addScore', gameid=newgame.id)
 
 def Stats(request):
+  total_points = []
   high_score = []
+  average_score=[]
   for u in User.objects.all():
     total = 0
+    highest = 0
+    games = 0
     for s in u.shanghigames.all():
+      games += 1
       total += s.total
-    high_score.append([u, total])
-  high_score.sort(key=lambda x: x[1], reverse=True)
-  return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score}))
+      if s.total > highest: highest = s.total
+    total_points.append([u.first_name + " " + u.last_name, total])
+    high_score.append([u.first_name + " " + u.last_name, highest])
+    if games == 0: games = 1
+    average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
+  total_points.sort(key=lambda x: x[1], reverse=True)
+  return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
+                                                                                    'total_points':total_points,
+                                                                                    'average_score':average_score}))
