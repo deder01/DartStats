@@ -94,7 +94,7 @@ def Undo(request,gameid):
   else:
     cp = cp-1
   redo = player_list[cp-1]
-  theround = redo.rounds.all()[cr-10]
+  theround = redo.rounds.all().filter(round_number=0)[0]
   if cr == 10:
     redo.accuracy = 0
     redo.total=0
@@ -164,7 +164,9 @@ def Stats(request):
     high_score.append([u.first_name + " " + u.last_name, highest])
     if games == 0: games = 1
     average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
+  high_score.sort(key=lambda x: x[1], reverse=True)
   total_points.sort(key=lambda x: x[1], reverse=True)
+  average_score.sort(key=lambda x: x[1], reverse=True)
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score}))
