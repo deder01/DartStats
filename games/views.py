@@ -122,7 +122,7 @@ def CreateShanghi(request):
   player2 = request.POST['player2']
   player3 = request.POST['player3']
   player4 = request.POST['player4']
-  player5 = request.POST['player4']
+  player5 = request.POST['player5']
   name = request.POST['name']
   p1 = User.objects.all().filter(id=player1)[0]
   p2 = User.objects.all().filter(id=player2)[0]
