@@ -141,7 +141,7 @@ def CreateShanghi(request):
   playernum=1
   for p in player_list:
     x = ShanghiPlayer(player=p, game=newgame, player_num=playernum)
-    playernum++
+    playernum += 1
     x.save()
     for i in range(0,12):
       r = ShanghiRound(round_number=i+10, shanghiplayer=x)
