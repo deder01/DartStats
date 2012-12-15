@@ -18,7 +18,7 @@ def addScore(request,gameid):
   cr = int(game.current_round)
   justshot=game.players.all()[cp-1]
   if request.method == 'POST':
-    r = player_list[cp-1].rounds.all().filter(round_number=cr)
+    r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
     r.singles = int(request.POST['singles'])
     r.doubles = int(request.POST['doubles'])
     r.triples = int(request.POST['triples'])
