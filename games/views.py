@@ -167,7 +167,7 @@ def Stats(request):
     high_score.append([u.first_name + " " + u.last_name, highest])
     if games == 0: games = 1
     average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
-    average_accuracy.append([u.first_name + " " + u.last_name, round(float(accuracy)/float(games),1)])
+    average_accuracy.append([u.first_name + " " + u.last_name, str(round(float(accuracy)/float(games))+"%",1)])
   high_score.sort(key=lambda x: x[1], reverse=True)
   total_points.sort(key=lambda x: x[1], reverse=True)
   average_score.sort(key=lambda x: x[1], reverse=True)
