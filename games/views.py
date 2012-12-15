@@ -26,6 +26,7 @@ def addScore(request,gameid):
     justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
     ac = justshot.accuracy
     justshot.save()
+    r.save()
     if cp == game.num_players:
       if cr == 21:
         game.done = 1
@@ -37,7 +38,6 @@ def addScore(request,gameid):
     game.current_player = cp
     game.current_round = cr
     game.save()
-    r.save()
   matrix = []
   i=0
   while i<12:
