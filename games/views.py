@@ -16,7 +16,7 @@ def addScore(request,gameid):
   game.done = 0
   cp = int(game.current_player)
   cr = int(game.current_round)
-  justshot=game.players.all()[cp-1]
+  justshot=game.players.all().filter(player_num=cp)[0]
   if request.method == 'POST':
     r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
     r.singles = int(request.POST['singles'])
