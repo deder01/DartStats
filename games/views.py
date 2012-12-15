@@ -50,10 +50,10 @@ def addScore(request,gameid):
       total = p.rounds.all().filter(round_number=i)[0].singles * (j) 
       total += p.rounds.all().filter(round_number=i)[0].doubles * (j) * 2
       total += p.rounds.all().filter(round_number=i)[0].triples * (j) * 3
-      matrix[i].append(str(total)) 
+      matrix[i-10].append(str(total)) 
     i+=1
   matrix.append(['Total'])
-  for p in player_list: matrix[i].append(str(p.total) + " " + str(round((p.accuracy*100), 2)) + "%")
+  for p in player_list: matrix[i-10].append(str(p.total) + " " + str(round((p.accuracy*100), 2)) + "%")
   current_player = player_list[cp-1]
   return render_to_response('shanghigame.html', context_instance=RequestContext(request, {'player_list':player_list,
                                                                                           'matrix':matrix,
