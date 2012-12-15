@@ -47,9 +47,9 @@ def addScore(request,gameid):
     matrix.append([j])
     if j == 'B': j=25
     for p in player_list:
-      total = p.rounds.all().filter(round_num=i)[0].singles * (j) 
-      total += p.rounds.all().filter(round_num = i).doubles * (j) * 2
-      total += p.rounds.all().filter(round_num = i).triples * (j) * 3
+      total = p.rounds.all().filter(round_number=i)[0].singles * (j) 
+      total += p.rounds.all().filter(round_number=i).doubles * (j) * 2
+      total += p.rounds.all().filter(round_number=i).triples * (j) * 3
       matrix[i].append(str(total)) 
     i+=1
   matrix.append(['Total'])
