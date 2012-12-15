@@ -29,6 +29,20 @@
 </table>
 </div>
 <div class="span3">
+<h2> Accuracy </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Score </th>
+  {% for row in average_accuracy %}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
 <h2> Total Points</h2>
   <table class="table">
     <th> Player </th>

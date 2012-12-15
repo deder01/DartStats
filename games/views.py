@@ -152,22 +152,28 @@ def Stats(request):
   total_points = []
   high_score = []
   average_score=[]
+  average_accuracy=[]
   for u in User.objects.all():
     total = 0
     highest = 0
     games = 0
+    accuracy = 0.0
     for s in u.shanghigames.all():
       games += 1
       total += s.total
+      accuracy += s.accuracy
       if s.total > highest: highest = s.total
     total_points.append([u.first_name + " " + u.last_name, total])
     high_score.append([u.first_name + " " + u.last_name, highest])
     if games == 0: games = 1
     average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
+    average_accuracy.append([u.first_name + " " + u.last_name, round(float(accuracy)/float(games),1)])
   high_score.sort(key=lambda x: x[1], reverse=True)
   total_points.sort(key=lambda x: x[1], reverse=True)
   average_score.sort(key=lambda x: x[1], reverse=True)
+  average_accuracy.sort(key=lambda x: x[1], reverse=True)
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
-                                                                                    'average_score':average_score}))
+                                                                                    'average_score':average_score,
+                                                                                    'average_accuracy':average_accuracy}))
 
