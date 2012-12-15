@@ -1,4 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-{% endblock %}
+<div class="span2">
+  <h2> Highest Score </h1>
+  <table class="table">
+    <th> Player </th>
+    <th> Scre </th>
+  {% for row in high_score %}
+    <tr>
+    {% for c in row %}
+      <td> c </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
 </table>
+
+</table>L

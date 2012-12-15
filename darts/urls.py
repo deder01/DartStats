@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root':settings.STATIC_ROOT}),
     url(r'^creategame/$', 'games.views.SetUpShanghi'),
+    url(r'^stats/$', 'games.views.Stats'),
     url(r'^creategame/makenewgame$', 'games.views.CreateShanghi'),
     # url(r'^darts/', include('darts.foo.urls')),
 

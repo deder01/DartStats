@@ -11,7 +11,7 @@ class ShanghiGame(models.Model):
 class ShanghiPlayer(models.Model):
   player_num = models.IntegerField(default=1)
   game = models.ForeignKey(ShanghiGame, related_name="players")
-  player = models.ForeignKey(User, related_name="shangi_games")
+  player = models.ForeignKey(User, related_name="shanghigames")
   total = models.IntegerField(default=0)
   accuracy = models.DecimalField(max_digits=5, decimal_places=4, default=0)
 
