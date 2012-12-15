@@ -39,10 +39,10 @@ def addScore(request,gameid):
     game.current_round = cr
     game.save()
   matrix = []
-  i=0
-  while i<12:
-    j=i+10
-    if i == 11:
+  i=10
+  while i<22:
+    j=i
+    if i == 21:
       j='B'
     matrix.append([j])
     if j == 'B': j=25
