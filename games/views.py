@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import *
 from django.template.context import RequestContext
 from django.contrib.auth import authenticate, login, logout
+from django.core.validators import email_re
 from models import *
 from forms import *
 
@@ -63,6 +64,9 @@ def Login(request):
   if request.method == 'POST':
     username = request.POST['username']
     password = request.POST['password']
+    if email_re.search(username):
+      user  = User.objects.get(email=username.lower())
+      if user: username = user.username
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
@@ -158,3 +162,4 @@ def Stats(request):
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score}))
+
