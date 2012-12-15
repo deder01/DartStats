@@ -138,8 +138,10 @@ def CreateShanghi(request):
     player_list.append(p5)
   newgame = ShanghiGame(name=name, num_players=len(player_list))
   newgame.save()
+  playernum=1
   for p in player_list:
-    x = ShanghiPlayer(player=p, game=newgame)
+    x = ShanghiPlayer(player=p, game=newgame, player_num=playernum)
+    playernum++
     x.save()
     for i in range(0,12):
       r = ShanghiRound(round_number=i+10, shanghiplayer=x)
