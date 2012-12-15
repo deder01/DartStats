@@ -161,7 +161,7 @@ def Stats(request):
     for s in u.shanghigames.all():
       games += 1
       total += s.total
-      accuracy += s.accuracy
+      accuracy += float(s.accuracy)
       if s.total > highest: highest = s.total
     total_points.append([u.first_name + " " + u.last_name, total])
     high_score.append([u.first_name + " " + u.last_name, highest])
