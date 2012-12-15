@@ -122,6 +122,7 @@ def CreateShanghi(request):
   player2 = request.POST['player2']
   player3 = request.POST['player3']
   player4 = request.POST['player4']
+  player5 = request.POST['player4']
   name = request.POST['name']
   p1 = User.objects.all().filter(id=player1)[0]
   p2 = User.objects.all().filter(id=player2)[0]
@@ -132,6 +133,8 @@ def CreateShanghi(request):
   if player4 != "":
     p4 = User.objects.all().filter(id=player4)[0]
     player_list.append(p4)
+ if player5 != "":
+    p5 = User.objects.all().filter(id=player5)[0]
   newgame = ShanghiGame(name=name, num_players=len(player_list))
   newgame.save()
   for p in player_list:
