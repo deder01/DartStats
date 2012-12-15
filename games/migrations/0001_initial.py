@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('done', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('num_players', self.gf('django.db.models.fields.IntegerField')(default=2)),
             ('current_round', self.gf('django.db.models.fields.IntegerField')(default=10)),
-            ('current_player', self.gf('django.db.models.fields.IntegerField')(default=2)),
+            ('current_player', self.gf('django.db.models.fields.IntegerField')(default=1)),
         ))
         db.send_create_signal('games', ['ShanghiGame'])
 
@@ -24,9 +24,9 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('player_num', self.gf('django.db.models.fields.IntegerField')(default=1)),
             ('game', self.gf('django.db.models.fields.related.ForeignKey')(related_name='players', to=orm['games.ShanghiGame'])),
-            ('player', self.gf('django.db.models.fields.related.ForeignKey')(related_name='shangi_games', to=orm['auth.User'])),
+            ('player', self.gf('django.db.models.fields.related.ForeignKey')(related_name='shanghigames', to=orm['auth.User'])),
             ('total', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('accuracy', self.gf('django.db.models.fields.DecimalField')(default=0, max_digits=4, decimal_places=4)),
+            ('accuracy', self.gf('django.db.models.fields.DecimalField')(default=0, max_digits=5, decimal_places=4)),
         ))
         db.send_create_signal('games', ['ShanghiPlayer'])
 
@@ -92,7 +92,7 @@ class Migration(SchemaMigration):
         },
         'games.shanghigame': {
             'Meta': {'object_name': 'ShanghiGame'},
-            'current_player': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
+            'current_player': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'current_round': ('django.db.models.fields.IntegerField', [], {'default': '10'}),
             'done': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -101,10 +101,10 @@ class Migration(SchemaMigration):
         },
         'games.shanghiplayer': {
             'Meta': {'object_name': 'ShanghiPlayer'},
-            'accuracy': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '4', 'decimal_places': '4'}),
+            'accuracy': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '5', 'decimal_places': '4'}),
             'game': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'players'", 'to': "orm['games.ShanghiGame']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'player': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'shangi_games'", 'to': "orm['auth.User']"}),
+            'player': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'shanghigames'", 'to': "orm['auth.User']"}),
             'player_num': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'total': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
