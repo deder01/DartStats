@@ -133,8 +133,9 @@ def CreateShanghi(request):
   if player4 != "":
     p4 = User.objects.all().filter(id=player4)[0]
     player_list.append(p4)
- if player5 != "":
+  if player5 != "":
     p5 = User.objects.all().filter(id=player5)[0]
+    player_list.append(p5)
   newgame = ShanghiGame(name=name, num_players=len(player_list))
   newgame.save()
   for p in player_list:
