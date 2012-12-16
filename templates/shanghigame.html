@@ -66,7 +66,7 @@
 <table class="table">
   <th> Round </th>
   {% for p in player_list %}
-  <th>{{ p.player.first_name }}</th>
+  <th>{{ p.player.first_name }} {{ p.total }} {{ p.accuracy }} </th>
   {% endfor %}
 {% for row in matrix%}
    <tr>
