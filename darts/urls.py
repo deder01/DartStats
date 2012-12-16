@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^creategame/$', 'games.views.SetUpShanghi'),
     url(r'^stats/$', 'games.views.Stats'),
     url(r'^creategame/makenewgame$', 'games.views.CreateShanghi'),
+    url(r'^previousgames/$', 'games.views.History'),
     # url(r'^darts/', include('darts.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

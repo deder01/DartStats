@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+{% for a in all_games %}
+  <a href="/shanghigames/{{ a.id }}">{{ a.name }}</a>
+  {% endfor %}
+  {% endblock %}

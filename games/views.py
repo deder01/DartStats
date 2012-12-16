@@ -213,3 +213,7 @@ def Stats(request):
                                                                                     'total_doubles':total_doubles,
                                                                                     'total_triples':total_triples,
                                                                                     }))
+
+def History(request):
+  all_games = ShanghiGame.objects.all().order_by('id')
+  return render_to_response('history.html', context_instance=RequestContext(request, {'all_games':all_games}))
