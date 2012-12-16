@@ -56,6 +56,17 @@
       </select>
     </div>
   </div>
+ <div class="control-group pull-left">
+    <label class="control-label pull-left" for="player5">Player 5</label>
+    <div class="controls">
+      <select id="player5" name="player5" class="span2">
+          <option value=""> </option>
+        {% for p in player_list %}
+        <option value="{{ p.id }} "> {{ p.first_name }} {{ p.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
   <button type="submit" class="btn">Create!</button>
 </form> 
 {% endblock %}
