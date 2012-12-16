@@ -53,7 +53,7 @@ def addScore(request,gameid):
       matrix[i-10].append(str(total)) 
     i+=1
   matrix.append(['Total'])
-  for p in player_list: matrix[i-10].append(str(p.total) + " " + str(round((p.accuracy*100), 2)) + "%")
+  for p in player_list: matrix[i-10].append(str(p.total) + " " + str(round((p.accuracy*100), 4)) + "%")
   current_player = player_list[cp-1]
   return render_to_response('shanghigame.html', context_instance=RequestContext(request, {'player_list':player_list,
                                                                                           'matrix':matrix,
@@ -84,7 +84,6 @@ def Logout(request):
 
 def Undo(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
-  player_list = ShanghiPlayer.objects.all().order_by('id')
   game.done = 0
   cp = int(game.current_player)
   cr = int(game.current_round)
@@ -93,7 +92,7 @@ def Undo(request,gameid):
     cr = cr-1
   else:
     cp = cp-1
-  redo = player_list[cp-1]
+  redo = ShanghiPlayer.objects.all().filter(player_num=cp)[0]
   theround = redo.rounds.all().filter(round_number=cr)[0]
   if cr == 10:
     redo.accuracy = 0
@@ -153,27 +152,46 @@ def Stats(request):
   high_score = []
   average_score=[]
   average_accuracy=[]
+  total_singles = []
+  total_doubles = []
+  total_triples= []
   for u in User.objects.all():
     total = 0
     highest = 0
     games = 0
     accuracy = 0.0
+    singles = 0
+    doubles = 0
+    triples = 0
     for s in u.shanghigames.all():
       games += 1
       total += s.total
       accuracy += float(s.accuracy)
+      for r in s.rounds.all():
+        singles += r.singles
+        doubles += r.doubles
+        triples += r.triples
       if s.total > highest: highest = s.total
     total_points.append([u.first_name + " " + u.last_name, total])
     high_score.append([u.first_name + " " + u.last_name, highest])
+    total_singles.append([u.first_name + " " + u.last_name, singles])
+    total_doubles.append([u.first_name + " " + u.last_name, doubles])
+    total_triples.append([u.first_name + " " + u.last_name, triples])
     if games == 0: games = 1
     average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
-    average_accuracy.append([u.first_name + " " + u.last_name, str(round(float(accuracy)/float(games),2)*100)+"%"])
+    average_accuracy.append([u.first_name + " " + u.last_name, str(round(float(accuracy)/float(games),4)*100)+"%"])
   high_score.sort(key=lambda x: x[1], reverse=True)
   total_points.sort(key=lambda x: x[1], reverse=True)
   average_score.sort(key=lambda x: x[1], reverse=True)
   average_accuracy.sort(key=lambda x: x[1], reverse=True)
+  total_singles.sort(key=lambda x: x[1], reverse=True)
+  total_doubles.sort(key=lambda x: x[1], reverse=True)
+  total_triples.sort(key=lambda x: x[1], reverse=True)
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score,
-                                                                                    'average_accuracy':average_accuracy}))
-
+                                                                                    'average_accuracy':average_accuracy,
+                                                                                    'total_singles':total_singles,
+                                                                                    'total_doubles':total_doubles,
+                                                                                    'total_triples':total_triples,
+                                                                                    }))

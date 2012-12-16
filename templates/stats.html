@@ -44,6 +44,48 @@
 </div>
 
 <div class="span3">
+<h2> Singles </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Score </th>
+  {% for row in total_singles%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="span3">
+<h2> Doubles </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Score </th>
+  {% for row in total_doubles%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="span3">
+<h2> Triples </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Score </th>
+  {% for row in total_triples%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="span3">
 <h2> Total Points</h2>
   <table class="table">
     <th> Player </th>
