@@ -11,7 +11,6 @@ def Home(request):
   return render_to_response('index.html', context_instance=RequestContext(request, {}))
 
 def addScore(request,gameid):
-  if !request.user.is_authenticated(): return redirect(games.views.Home)
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
   player_list = game.players.all().order_by('player_num')
   game.done = 0
@@ -118,6 +117,7 @@ def SetUpShanghi(request):
                                                                                 }))
                                                                               
 def CreateShanghi(request):
+  if !request.user.is_authenticated(): return redirect(games.views.Home)
   player1 = request.POST['player1']
   player2 = request.POST['player2']
   player3 = request.POST['player3']
