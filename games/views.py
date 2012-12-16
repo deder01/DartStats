@@ -117,7 +117,7 @@ def SetUpShanghi(request):
                                                                                 }))
                                                                               
 def CreateShanghi(request):
-  if !request.user.is_authenticated():
+  if !(request.user.is_authenticated()):
     return redirect(games.views.Home)
   player1 = request.POST['player1']
   player2 = request.POST['player2']
