@@ -94,7 +94,7 @@ def Undo(request,gameid):
   else:
     cp = cp-1
   redo = player_list[cp-1]
-  theround = redo.rounds.all().filter(round_number=0)[0]
+  theround = redo.rounds.all().filter(round_number=cr)[0]
   if cr == 10:
     redo.accuracy = 0
     redo.total=0

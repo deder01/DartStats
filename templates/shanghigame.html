@@ -8,40 +8,52 @@
 {% endif %}
 <h1> Player: {{ current_player.player.first_name }} </h1>
 
-<div class="span2">
-<form action="{{ game.id }}" method="post" class="span6">{% csrf_token %}
-  <div class="control-group pull-left">
-    <label class="control-label pull-left" for="singles">Singles</label>
-    <div class="controls">
-      <select id="singles" name="singles" class="span1">
-        <option value=0>0</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-      </select>
-    </div>
+<div class="span6">
+<form action="{{ game.id }}" method="post" class="span4 score_option score_form">{% csrf_token %}
+  <div class="span4 score_option">
+    Singles
+    <label class="radio inline">
+      <input type="radio" name="singles" id="singles" value=0 checked> 0
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="singles" id="singles1" value=1> 1
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="singles" id="singles2" value=2> 2
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="singles" id="singles3" value=3> 3
+    </label>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="doubles">Doubles</label>
-    <div class="controls">
-      <select id="doubles" name="doubles" class="span1">
-        <option value=0>0</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-      </select>
-    </div>
+  <div class="span4 score_option">
+    Doubles
+    <label class="radio inline">
+      <input type="radio" name="doubles" id="doubles0" value=0 checked> 0
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="doubles" id="doubles1" value=1> 1
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="doubles" id="doubles2" value=2> 2
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="doubles" id="doubles3" value=3> 3
+    </label>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="triples">Triples</label>
-    <div class="controls">
-      <select id="singles" name="triples" class="span1">
-        <option value=0>0</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-      </select>
-    </div>
+  <div class="span4 score_option">
+    Triples
+    <label class="radio inline">
+      <input type="radio" name="triples" id="triples0" value=0 checked> 0
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="triples" id="triples1" value=1> 1
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="triples" id="triples2" value=2> 2
+    </label>
+    <label class="radio inline">
+      <input type="radio" name="triples" id="triples3" value=3> 3
+    </label>
   </div>
   <input type="submit" value="Submit" />
 </form>
