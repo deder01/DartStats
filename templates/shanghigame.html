@@ -9,7 +9,7 @@
 <h1> Player: {{ current_player.player.first_name }} </h1>
 
 <div class="span2">
-<form action="{{ game.id }}" method="post" class="form-horizontal pull-left">{% csrf_token %}
+<form action="{{ game.id }}" method="post" class="span6">{% csrf_token %}
   <div class="control-group pull-left">
     <label class="control-label pull-left" for="singles">Singles</label>
     <div class="controls">
