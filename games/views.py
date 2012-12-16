@@ -117,8 +117,8 @@ def SetUpShanghi(request):
                                                                                 }))
                                                                               
 def CreateShanghi(request):
-  if request.user.is_authenticated() != True:
-    return redirect(games.views.Home)
+  if request.user.is_authenticated() == False:
+    return render_to_response('notloggedin.html', context_instance=RequestContext(request, {})) 
   player1 = request.POST['player1']
   player2 = request.POST['player2']
   player3 = request.POST['player3']
