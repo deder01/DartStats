@@ -29,10 +29,25 @@
 </table>
 </div>
 <div class="span3">
-<h2> Accuracy </h2>
+<h2> Total Points</h2>
   <table class="table">
     <th> Player </th>
     <th> Score </th>
+  {% for row in total_points%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+<div class="span3">
+<h2> Accuracy </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Accuracy </th>
   {% for row in average_accuracy %}
     <tr>
     {% for c in row %}
@@ -44,11 +59,75 @@
 </div>
 
 <div class="span3">
-<h2> Total Points</h2>
+<h2> Hits (Not Bulls) </h2>
   <table class="table">
     <th> Player </th>
-    <th> Score </th>
-  {% for row in total_points%}
+    <th> Dart </th>
+    <th> Game </th>
+  {% for row in total_hits%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+
+<div class="span3">
+<h2> Bullseyes </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Per Game</th>
+    <th> Total </th>
+  {% for row in total_bulls%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+<div class="span3">
+<h2> Singles </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Average </th>
+    <th> Total </th>
+  {% for row in total_singles%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="span3">
+<h2> Doubles </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Average </th>
+    <th> Total </th>
+  {% for row in total_doubles%}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="span3">
+<h2> Triples </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Average </th>
+    <th> Total </th>
+  {% for row in total_triples%}
     <tr>
     {% for c in row %}
     <td> {{ c }} </td>
