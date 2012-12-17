@@ -210,7 +210,8 @@ def Stats(request):
   total_singles.sort(key=itemgetter(1, 0), reverse=True)
   total_doubles.sort(key=itemgetter(1, 0), reverse=True)
   total_triples.sort(key=itemgetter(1, 0), reverse=True)
-  total_wins.sort(key=itemgetter(2, 1, 3, 4, 0), reverse=True)
+  total_wins.sort(key=itemgetter(4))
+  total_wins.sort(key=itemgetter(2, 1, 3), reverse=True)
   for a in average_accuracy:
     a[1] = str(a[1]) + "%"
   for w in total_wins:
