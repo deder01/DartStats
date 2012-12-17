@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'ShanghiGame.done'
-        db.alter_column('games_shanghigame', 'done', self.gf('django.db.models.fields.BooleanField')())
+        db.alter_column('games_shanghigame', 'done', self.gf('django.db.models.fields.NullBooleanField')(null=True))
 
     def backwards(self, orm):
 
@@ -58,7 +58,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'ShanghiGame'},
             'current_player': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'current_round': ('django.db.models.fields.IntegerField', [], {'default': '10'}),
-            'done': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'done': ('django.db.models.fields.NullBooleanField', [], {'default': 'False', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'num_players': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
