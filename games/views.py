@@ -80,7 +80,7 @@ def Login(request):
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
-      name = user.first_name + " " + user.last_name
+      name = user.first_name + " " + user.last_name[0] + "."
     else:
       name = username 
   else:
@@ -195,16 +195,16 @@ def Stats(request):
     games = len(u.shanghigames.all())
     loses = games - wins
     if games == 0: games = 1
-    total_points.append([u.first_name + " " + u.last_name, total])
-    high_score.append([u.first_name + " " + u.last_name, highest])
-    average_accuracy.append([u.first_name + " " + u.last_name, round(float(accuracy)/float(games),4)*100])
-    average_score.append([u.first_name + " " + u.last_name, round(float(total)/float(games),1)])
-    total_hits.append([u.first_name + " " + u.last_name, round(float(hits)/(float(games) * 33.0),2), round(float(hits)/float(games))])
-    total_bulls.append([u.first_name + " " + u.last_name, round(float(bulls)/(float(games)),1), bulls])
-    total_singles.append([u.first_name + " " + u.last_name, round(float(singles)/float(games),1), singles])
-    total_doubles.append([u.first_name + " " + u.last_name, round(float(doubles)/float(games),1), doubles])
-    total_triples.append([u.first_name + " " + u.last_name, round(float(triples)/float(games),1), triples])
-    total_wins.append([u.first_name + " " + u.last_name, wins+loses, round(float(wins)/float(games), 4) * 100, wins, loses])
+    total_points.append([u.first_name + " " + u.last_name[0] + ".", total])
+    high_score.append([u.first_name + " " + u.last_name[0] + ".", highest])
+    average_accuracy.append([u.first_name + " " + u.last_name[0] + ".", round(float(accuracy)/float(games),4)*100])
+    average_score.append([u.first_name + " " + u.last_name[0] + ".", round(float(total)/float(games),1)])
+    total_hits.append([u.first_name + " " + u.last_name[0] + ".", round(float(hits)/(float(games) * 33.0),2), round(float(hits)/float(games))])
+    total_bulls.append([u.first_name + " " + u.last_name[0] + ".", round(float(bulls)/(float(games)),1), bulls])
+    total_singles.append([u.first_name + " " + u.last_name[0] + ".", round(float(singles)/float(games),1), singles])
+    total_doubles.append([u.first_name + " " + u.last_name[0] + ".", round(float(doubles)/float(games),1), doubles])
+    total_triples.append([u.first_name + " " + u.last_name[0] + ".", round(float(triples)/float(games),1), triples])
+    total_wins.append([u.first_name + " " + u.last_name[0] + ".", wins+loses, round(float(wins)/float(games), 4) * 100, wins, loses])
 
   high_score.sort(key=itemgetter(1, 0), reverse=True)
   total_points.sort(key=itemgetter(1, 0), reverse=True)
