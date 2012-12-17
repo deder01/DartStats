@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-{% if game.done == 0 %}
 {%if game.current_round == 21 %}
 <h1> Round: Bullseyes </h1>
 {% else %}
 <h1> Round: {{ game.current_round }}</h1>
 {% endif %}
 <h1> Player: {{ current_player.player.first_name }} </h1>
+{% if game.done == 0 %}
 
 <div class="span6">
 <form action="{{ game.id }}" method="post" class="span4 score_option score_form">{% csrf_token %}
@@ -61,8 +61,8 @@
 <form action="/shanghigames/undo/{{ game.id }}">
   <input type="submit" value="Undo Last Throw" />
 </form>
-{% endif %}
 </div>
+{% endif %}
 <table class="table">
   <th> Round </th>
   {% for p in player_list %}

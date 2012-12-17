@@ -28,7 +28,7 @@ def addScore(request,gameid):
     justshot.save()
     r.save()
     if cp == game.num_players:
-      if cr == 21:
+      if cr > 20:
         game.done = 1
       else:
         cp = 1
