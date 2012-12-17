@@ -30,6 +30,11 @@ def addScore(request,gameid):
     if cp == game.num_players:
       if cr > 20:
         game.done = 1
+        highest = 0
+        for p in player_list:
+          if p.total > highest:
+            highest = p.total
+            game.winner = p
       else:
         cp = 1
         cr += 1
@@ -159,6 +164,7 @@ def Stats(request):
   total_singles = []
   total_doubles = []
   total_triples= []
+  total_wins = []
   for u in User.objects.all():
     total = 0
     highest = 0
@@ -192,6 +198,8 @@ def Stats(request):
     total_singles.append([u.first_name + " " + u.last_name, round(float(singles)/float(games),1), singles])
     total_doubles.append([u.first_name + " " + u.last_name, round(float(doubles)/float(games),1), doubles])
     total_triples.append([u.first_name + " " + u.last_name, round(float(triples)/float(games),1), triples])
+    total_wins.append([u.first_name + " " + u.last_name, len(u.shanghigames.all()), len(u.shanghigames_won.all()), 
+                                                         len(u.shanghigames.all())-len(u.shanghigames_won.all())])
   high_score.sort(key=lambda x: x[1], reverse=True)
   total_points.sort(key=lambda x: x[1], reverse=True)
   average_score.sort(key=lambda x: x[1], reverse=True)
@@ -201,6 +209,7 @@ def Stats(request):
   total_singles.sort(key=lambda x: x[1], reverse=True)
   total_doubles.sort(key=lambda x: x[1], reverse=True)
   total_triples.sort(key=lambda x: x[1], reverse=True)
+  total_wins.sort(key=lambda x: x[2], reverse=True)
   for a in average_accuracy:
     a[1] = str(a[1]) + "%"
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
@@ -212,6 +221,7 @@ def Stats(request):
                                                                                     'total_singles':total_singles,
                                                                                     'total_doubles':total_doubles,
                                                                                     'total_triples':total_triples,
+                                                                                    'total_wins':total_wins,
                                                                                     }))
 
 def History(request):

@@ -7,6 +7,7 @@ class ShanghiGame(models.Model):
   num_players = models.IntegerField(default=2)
   current_round = models.IntegerField(default=10)
   current_player = models.IntegerField(default=1)
+  winner = models.ForeignKey(User, related_name="shanghigames_won")
 
 class ShanghiPlayer(models.Model):
   player_num = models.IntegerField(default=1)

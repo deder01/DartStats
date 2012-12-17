@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="span9">
+  <h2> Wins </h2>
+  <table class="table">
+    <th> Player </th>
+    <th> Games </th>
+    <th> Wins </th>
+    <th> Loses </th>
+  {% for row in total_wins %}
+    <tr>
+    {% for c in row %}
+    <td> {{ c }} </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
 <div class="span3">
   <h2> High Score </h2>
   <table class="table">
