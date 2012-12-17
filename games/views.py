@@ -187,9 +187,9 @@ def Stats(request):
       if s.total > highest: highest = s.total
     hits = singles + doubles * 2 + triples * 3
     wins = len(u.shanghigames_won.all())
-    loses = len(u.shanghigames_won.all())
-    games = wins + loses
+    games = len(u.shanghigames.all())
     if games == 0: games = 1
+    loses = games - wins
     total_points.append([u.first_name + " " + u.last_name, total])
     high_score.append([u.first_name + " " + u.last_name, highest])
     average_accuracy.append([u.first_name + " " + u.last_name, round(float(accuracy)/float(games),4)*100])
@@ -199,7 +199,7 @@ def Stats(request):
     total_singles.append([u.first_name + " " + u.last_name, round(float(singles)/float(games),1), singles])
     total_doubles.append([u.first_name + " " + u.last_name, round(float(doubles)/float(games),1), doubles])
     total_triples.append([u.first_name + " " + u.last_name, round(float(triples)/float(games),1), triples])
-    total_wins.append([u.first_name + " " + u.last_name, wins+loses, round(float(wins)/float(games), 4) * 100, wins, loses])
+    total_wins.append([u.first_name + " " + u.last_name, games, round(float(wins)/float(games), 4) * 100, wins, loses])
 
   high_score.sort(key=itemgetter(1, 0), reverse=True)
   total_points.sort(key=itemgetter(1, 0), reverse=True)
