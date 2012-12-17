@@ -13,11 +13,10 @@ def Home(request):
 def addScore(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
   player_list = game.players.all().order_by('player_num')
-  game.done = 0
   cp = int(game.current_player)
   cr = int(game.current_round)
   justshot=game.players.all().filter(player_num=cp)[0]
-  if request.method == 'POST':
+  if request.method == 'POST' and game.done == 0:
     r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
     r.singles = int(request.POST['singles'])
     r.doubles = int(request.POST['doubles'])
