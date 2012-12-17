@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class ShanghiGame(models.Model):
   name = models.CharField(max_length=100)
-  done = models.NullBooleanField(default=False)
+  done = models.BooleanField(default=False)
   num_players = models.IntegerField(default=2)
   current_round = models.IntegerField(default=10)
   current_player = models.IntegerField(default=1)

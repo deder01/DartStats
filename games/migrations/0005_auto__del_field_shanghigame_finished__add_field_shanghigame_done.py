@@ -8,14 +8,24 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Deleting field 'ShanghiGame.finished'
+        db.delete_column('games_shanghigame', 'finished')
 
-        # Changing field 'ShanghiGame.done'
-        db.alter_column('games_shanghigame', 'done', self.gf('django.db.models.fields.NullBooleanField')(null=True))
+        # Adding field 'ShanghiGame.done'
+        db.add_column('games_shanghigame', 'done',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
+
 
     def backwards(self, orm):
+        # Adding field 'ShanghiGame.finished'
+        db.add_column('games_shanghigame', 'finished',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
 
-        # Changing field 'ShanghiGame.done'
-        db.alter_column('games_shanghigame', 'done', self.gf('django.db.models.fields.IntegerField')())
+        # Deleting field 'ShanghiGame.done'
+        db.delete_column('games_shanghigame', 'done')
+
 
     models = {
         'auth.group': {
@@ -58,7 +68,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'ShanghiGame'},
             'current_player': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'current_round': ('django.db.models.fields.IntegerField', [], {'default': '10'}),
-            'done': ('django.db.models.fields.NullBooleanField', [], {'default': 'False', 'null': 'True', 'blank': 'True'}),
+            'done': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'num_players': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
