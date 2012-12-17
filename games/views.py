@@ -240,4 +240,5 @@ def Stats(request):
 
 def History(request):
   all_games = ShanghiGame.objects.all().order_by('id')
-  return render_to_response('history.html', context_instance=RequestContext(request, {'all_games':all_games}))
+  return render_to_response('history.html', context_instance=RequestContext(request, {'all_games':all_games,
+                                                                                      }))
