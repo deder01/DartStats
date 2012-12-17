@@ -22,6 +22,9 @@ def addScore(request,gameid):
     r.singles = int(request.POST['singles'])
     r.doubles = int(request.POST['doubles'])
     r.triples = int(request.POST['triples'])
+    if (r.singles + r.doubles + r.triples) > 3:
+      error_message = "The totals did not add up to three darts.  Please resubmit"
+      return render_to_response('shanghierror.html', context_instance = RequestContext(request, {'error_message'=error_message})
     justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
     justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
     ac = justshot.accuracy
