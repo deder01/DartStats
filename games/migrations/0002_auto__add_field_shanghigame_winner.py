@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'ShanghiGame.winner'
         db.add_column('games_shanghigame', 'winner',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default='', related_name='shanghigames_won', to=orm['auth.User']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, related_name='shanghigames_won', to=orm['auth.User']),
                       keep_default=False)
 
 
