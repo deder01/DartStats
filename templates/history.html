@@ -8,7 +8,7 @@
     <tr>
       <td> <a href="/shanghigames/{{ a.id }}">{{ a.name }}</a></td>
       <td> {{ a.winner.first_name }}</td>
-      <td> {{ a.gametime }} </td>
+      <td> {{ a.gametime.month }}/{{ a.gametime.day }}/{{ a.gametime.year }} </td>
     </tr>
   {% endfor %}
 </table>
