@@ -9,6 +9,7 @@ class ShanghiGame(models.Model):
   current_round = models.IntegerField(default=10)
   current_player = models.IntegerField(default=1)
   winner = models.ForeignKey(User, related_name="shanghigames_won", null=True)
+  game = models.DateTimeField(auto_now=True)
 
 class ShanghiPlayer(models.Model):
   player_num = models.IntegerField(default=1)
