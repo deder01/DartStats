@@ -17,35 +17,36 @@ def addScore(request,gameid):
   cp = int(game.current_player)
   cr = int(game.current_round)
   justshot=game.players.all().filter(player_num=cp)[0]
+  error_message =""
   if request.method == 'POST' and game.done == 0:
     r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
     r.singles = int(request.POST['singles'])
     r.doubles = int(request.POST['doubles'])
     r.triples = int(request.POST['triples'])
     if (r.singles + r.doubles + r.triples) > 3:
-      error_message = "The totals did not add up to three darts.  Please resubmit"
-      return render_to_response('shanghierror.html', context_instance=RequestContext(request, {'error_message':error_message}))
-    justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
-    justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
-    ac = justshot.accuracy
-    justshot.save()
-    r.save()
-    if cp == game.num_players:
-      if cr > 20:
-        game.done = 1
-        highest = 0
-        for p in player_list:
-          if p.total > highest:
-            highest = p.total
-            game.winner = p.player
-      else:
-        cp = 1
-        cr += 1
+      error_message = "You submitted a score that would require throwing more than three darts.  Please try again."
     else:
-      cp +=1 
-    game.current_player = cp
-    game.current_round = cr
-    game.save()
+      justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
+      justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
+      ac = justshot.accuracy
+      justshot.save()
+      r.save()
+      if cp == game.num_players:
+        if cr > 20:
+          game.done = 1
+          highest = 0
+          for p in player_list:
+            if p.total > highest:
+              highest = p.total
+              game.winner = p.player
+        else:
+          cp = 1
+          cr += 1
+      else:
+        cp +=1 
+      game.current_player = cp
+      game.current_round = cr
+      game.save()
   matrix = []
   i=10
   while i<22:
@@ -64,9 +65,10 @@ def addScore(request,gameid):
   for p in player_list: matrix[12].append(str(p.total) + " " + str(round((p.accuracy*100), 4)) + "%")
   current_player = player_list[cp-1]
   return render_to_response('shanghigame.html', context_instance=RequestContext(request, {'player_list':player_list,
-                                                                                          'matrix':matrix,
-                                                                                          'game':game,
-                                                                                          'current_player':current_player}))
+                                                                                            'matrix':matrix,
+                                                                                            'game':game,
+                                                                                            'current_player':current_player,
+                                                                                            'error_message':error_message}))
 
 def Login(request):
   if request.method == 'POST':

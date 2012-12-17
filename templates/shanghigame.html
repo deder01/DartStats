@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% block error %}{% endblock %}
+{{ error_message }}
 {%if game.current_round == 21 %}
 <h1> Round: Bullseyes </h1>
 {% else %}
