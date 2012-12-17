@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.validators import email_re
 from models import *
 from forms import *
+from operator import itemgetter
 
 def Home(request):
   return render_to_response('index.html', context_instance=RequestContext(request, {}))
@@ -167,14 +168,12 @@ def Stats(request):
   for u in User.objects.all():
     total = 0
     highest = 0
-    games = 0
     accuracy = 0.0
     bulls = 0
     singles = 0
     doubles = 0
     triples = 0
     for s in u.shanghigames.all():
-      games += 1
       total += s.total
       accuracy += float(s.accuracy)
       for r in s.rounds.all():
@@ -186,8 +185,11 @@ def Stats(request):
           doubles += r.doubles
           triples += r.triples
       if s.total > highest: highest = s.total
-    if games == 0: games = 1
     hits = singles + doubles * 2 + triples * 3
+    wins = len(u.shanghigames_won.all())
+    loses = len(u.shanghigames_won.all())
+    games = wins + loses
+    if games == 0: games = 1
     total_points.append([u.first_name + " " + u.last_name, total])
     high_score.append([u.first_name + " " + u.last_name, highest])
     average_accuracy.append([u.first_name + " " + u.last_name, round(float(accuracy)/float(games),4)*100])
@@ -197,20 +199,22 @@ def Stats(request):
     total_singles.append([u.first_name + " " + u.last_name, round(float(singles)/float(games),1), singles])
     total_doubles.append([u.first_name + " " + u.last_name, round(float(doubles)/float(games),1), doubles])
     total_triples.append([u.first_name + " " + u.last_name, round(float(triples)/float(games),1), triples])
-    total_wins.append([u.first_name + " " + u.last_name, len(u.shanghigames.all()), len(u.shanghigames_won.all()), 
-                                                         len(u.shanghigames.all())-len(u.shanghigames_won.all())])
-  high_score.sort(key=lambda x: x[1], reverse=True)
-  total_points.sort(key=lambda x: x[1], reverse=True)
-  average_score.sort(key=lambda x: x[1], reverse=True)
-  average_accuracy.sort(key=lambda x: x[1], reverse=True)
-  total_bulls.sort(key=lambda x: x[1], reverse=True)
-  total_hits.sort(key=lambda x: x[1], reverse=True)
-  total_singles.sort(key=lambda x: x[1], reverse=True)
-  total_doubles.sort(key=lambda x: x[1], reverse=True)
-  total_triples.sort(key=lambda x: x[1], reverse=True)
-  total_wins.sort(key=lambda x: x[2], reverse=True)
+    total_wins.append([u.first_name + " " + u.last_name, wins+loses, round(float(wins)/float(games), 4) * 100, wins, loses])
+
+  high_score.sort(key=itemgetter(1, 0), reverse=True)
+  total_points.sort(key=itemgetter(1, 0), reverse=True)
+  average_score.sort(key=itemgetter(1, 0), reverse=True)
+  average_accuracy.sort(key=itemgetter(1, 0), reverse=True)
+  total_bulls.sort(key=itemgetter(1, 0), reverse=True)
+  total_hits.sort(key=itemgetter(1, 0), reverse=True)
+  total_singles.sort(key=itemgetter(1, 0), reverse=True)
+  total_doubles.sort(key=itemgetter(1, 0), reverse=True)
+  total_triples.sort(key=itemgetter(1, 0), reverse=True)
+  total_wins.sort(key=itemgetter(2, 1, 3, 4, 0), reverse=True)
   for a in average_accuracy:
     a[1] = str(a[1]) + "%"
+  for w in total_wins:
+    w[2] = str(w[2]) + "%"
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score,
