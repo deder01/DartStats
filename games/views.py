@@ -18,7 +18,7 @@ def addScore(request,gameid):
   cr = int(game.current_round)
   justshot=game.players.all().filter(player_num=cp)[0]
   error_message =""
-  if request.method == 'POST' and game.done == 0:
+  if request.method == 'POST' and not game.done:
     r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
     r.singles = int(request.POST['singles'])
     r.doubles = int(request.POST['doubles'])
@@ -33,7 +33,7 @@ def addScore(request,gameid):
       r.save()
       if cp == game.num_players:
         if cr > 20:
-          game.done = 1
+          game.done = True
           highest = 0
           for p in player_list:
             if p.total > highest:
@@ -94,7 +94,7 @@ def Logout(request):
 
 def Undo(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
-  game.done = 0
+  game.done = False
   cp = int(game.current_player)
   cr = int(game.current_round)
   if cp == 1:

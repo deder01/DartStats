@@ -7,7 +7,7 @@
 <h1> Round: {{ game.current_round }}</h1>
 {% endif %}
 <h1> Player: {{ current_player.player.first_name }} </h1>
-{% if game.done == 0 %}
+{% if not game.done %}
 
 <div class="span6">
 <form action="{{ game.id }}" method="post" class="span4 score_option score_form">{% csrf_token %}
