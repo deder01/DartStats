@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 {{ error_message }}
+{% if game.done %}
+<h1> Winner is {{ game.winner.first_name }} </h1>
+{% if game.shanghiwin %}
+<h1> And it's a Shanghi!!! </h1>
+{% endif %}
+{% else %}
 {%if game.current_round == 21 %}
 <h1> Round: Bullseyes </h1>
 {% else %}
 <h1> Round: {{ game.current_round }}</h1>
 {% endif %}
 <h1> Player: {{ current_player.player.first_name }} </h1>
-{% if not game.done %}
 
 <div class="span6">
 <form action="{{ game.id }}" method="post" class="span4 score_option score_form">{% csrf_token %}
@@ -63,7 +68,6 @@
   <input type="submit" value="Undo Last Throw" />
 </form>
 </div>
-{% else %}
 {% endif %}
 <table class="table">
   <th> Round </th>

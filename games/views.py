@@ -26,6 +26,10 @@ def addScore(request,gameid):
     if (r.singles + r.doubles + r.triples) > 3:
       error_message = "You submitted a score that would require throwing more than three darts.  Please try again."
     else:
+      if r.singles == 1 and r.doubles == 1 and r.triples == 1:
+        game.done = True
+        game.shanghiwin = True
+        game.winner = justshot.player
       justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
       justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
       ac = justshot.accuracy
@@ -179,8 +183,9 @@ def Stats(request):
     doubles = 0
     triples = 0
     for s in u.shanghigames.all():
-      total += s.total
-      accuracy += float(s.accuracy)
+      if not s.game.shanghiwin:
+        total += s.total
+        accuracy += float(s.accuracy)
       for r in s.rounds.all():
         if r.round_number == 21:
           bulls += r.singles
@@ -189,7 +194,7 @@ def Stats(request):
           singles += r.singles
           doubles += r.doubles
           triples += r.triples
-      if s.total > highest: highest = s.total
+      if s.total > highest and not s.game.shanghiwin: highest = s.total
     hits = singles + doubles * 2 + triples * 3
     wins = len(u.shanghigames_won.all())
     games = len(u.shanghigames.all())
