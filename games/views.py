@@ -34,7 +34,7 @@ def addScore(request,gameid):
         for p in player_list:
           if p.total > highest:
             highest = p.total
-            game.winner = p
+            game.winner = p.player
       else:
         cp = 1
         cr += 1
