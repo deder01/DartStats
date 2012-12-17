@@ -7,7 +7,12 @@
   {% for a in all_games %}
     <tr>
       <td> <a href="/shanghigames/{{ a.id }}">{{ a.name }}</a></td>
-      <td> {{ a.winner.first_name }}</td>
+      <td> 
+        {{ a.winner.first_name }}
+        {% if not game.done %}
+          (Not Finished)
+        {% endif %}
+      </td>
       <td> {{ a.gametime.month }}/{{ a.gametime.day }}/{{ a.gametime.year }} </td>
     </tr>
   {% endfor %}
