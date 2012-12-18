@@ -1,4 +1,2 @@
 venv
 *.pyc
-*.py
-settings.py
