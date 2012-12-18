@@ -2,7 +2,7 @@
 import os
 import dj_database_url
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_ROOT_PATH=(os.path.dirname(os.path.realpath(__name__)))
