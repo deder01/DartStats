@@ -2,4 +2,3 @@ venv
 *.pyc
 *.py
 settings.py
-darts/settings.py
