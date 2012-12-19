@@ -99,6 +99,7 @@ def Logout(request):
 def Undo(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
   game.done = False
+  game.shanghi = False
   cp = int(game.current_player)
   cr = int(game.current_round)
   if cp == 1:
@@ -106,7 +107,7 @@ def Undo(request,gameid):
     cr = cr-1
   else:
     cp = cp-1
-  redo = ShanghiPlayer.objects.all().filter(player_num=cp)[0]
+  redo = game.players.all().filter(player_num=cp)[0]
   theround = redo.rounds.all().filter(round_number=cr)[0]
   if cr == 10:
     redo.accuracy = 0
