@@ -80,7 +80,7 @@ def Login(request):
     username = request.POST['username']
     password = request.POST['password']
     if email_re.search(username):
-      user  = Usethisround.objects.get(email=username.lower())
+      user  = User.objects.get(email=username.lower())
       if user: username = usethisround.username
     user = authenticate(username=username, password=password)
     if user is not None:
@@ -127,9 +127,9 @@ def Undo(request,gameid):
   return redirect('games.views.addScore', gameid=gameid)
 
 def SetUpShanghi(request):
-  if request.usethisround.is_authenticated() == False:
+  if request.user.is_authenticated() == False:
     return render_to_response('notloggedin.html', context_instance=RequestContext(request, {})) 
-  player_list = Usethisround.objects.all().order_by('first_name')
+  player_list = User.objects.all().order_by('first_name')
   return render_to_response('creategame.html', context_instance=RequestContext(request,
                                                                               {'player_list':player_list
                                                                                 }))
@@ -141,17 +141,17 @@ def CreateShanghi(request):
   player4 = request.POST['player4']
   player5 = request.POST['player5']
   name = request.POST['name']
-  p1 = Usethisround.objects.all().filter(id=player1)[0]
-  p2 = Usethisround.objects.all().filter(id=player2)[0]
+  p1 = User.objects.all().filter(id=player1)[0]
+  p2 = User.objects.all().filter(id=player2)[0]
   player_list = [p1, p2]
   if player3 != "": 
-    p3 = Usethisround.objects.all().filter(id=player3)[0]
+    p3 = User.objects.all().filter(id=player3)[0]
     player_list.append(p3)
   if player4 != "":
-    p4 = Usethisround.objects.all().filter(id=player4)[0]
+    p4 = User.objects.all().filter(id=player4)[0]
     player_list.append(p4)
   if player5 != "":
-    p5 = Usethisround.objects.all().filter(id=player5)[0]
+    p5 = User.objects.all().filter(id=player5)[0]
     player_list.append(p5)
   newgame = ShanghiGame(name=name, num_players=len(player_list))
   newgame.save()
