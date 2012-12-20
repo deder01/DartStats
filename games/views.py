@@ -188,7 +188,7 @@ def Stats(request):
       if not s.game.shanghiwin:
         total += s.total
         accuracy += float(s.accuracy)
-      for r in s.rounds.all():
+      for thisround in s.rounds.all():
         if thisround.round_number == 21:
           bulls += thisround.singles
           bulls += (thisround.doubles * 2)
