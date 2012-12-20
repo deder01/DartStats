@@ -7,7 +7,6 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'games.views.Home'),
     url(r'^shanghigames/(?P<gameid>\d+)$', 'games.views.addScore'),
     url(r'^shanghigames/undo/(?P<gameid>\d+)$', 'games.views.Undo'),
@@ -19,11 +18,4 @@ urlpatterns = patterns('',
     url(r'^stats/$', 'games.views.Stats'),
     url(r'^creategame/makenewgame$', 'games.views.CreateShanghi'),
     url(r'^previousgames/$', 'games.views.History'),
-    # url(r'^darts/', include('darts.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 )

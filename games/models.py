@@ -12,7 +12,7 @@ class ShanghiGame(models.Model):
   gametime = models.DateTimeField(auto_now=True)
 
 class ShanghiPlayer(models.Model):
-  player_num = models.IntegerField(default=1)
+  player_number = models.IntegerField(default=1)
   game = models.ForeignKey(ShanghiGame, related_name="players")
   player = models.ForeignKey(User, related_name="shanghigames")
   total = models.IntegerField(default=0)
