@@ -176,7 +176,7 @@ def Stats(request):
   total_doubles = []
   total_triples= []
   total_wins = []
-  for u in thisround.objects.all():
+  for u in User.objects.all():
     total = 0
     highest = 0
     accuracy = 0.0
