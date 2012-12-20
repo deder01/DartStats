@@ -13,28 +13,28 @@ def Home(request):
 
 def addScore(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
-  player_list = game.players.all().order_by('player_num')
+  player_list = game.players.all().order_by('player_number')
   cp = int(game.current_player)
   cr = int(game.current_round)
-  justshot=game.players.all().filter(player_num=cp)[0]
-  error_message =""
+  justshot=game.players.all().filter(player_number=cp)[0]
+  error_message = ""
   if request.method == 'POST' and not game.done:
-    r = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
-    r.singles = int(request.POST['singles'])
-    r.doubles = int(request.POST['doubles'])
-    r.triples = int(request.POST['triples'])
-    if (r.singles + r.doubles + r.triples) > 3:
+    thisround = player_list[cp-1].rounds.all().filter(round_number=cr)[0]
+    thisround.singles = int(request.POST['singles'])
+    thisround.doubles = int(request.POST['doubles'])
+    thisround.triples = int(request.POST['triples'])
+    if (thisround.singles + thisround.doubles + thisround.triples) > 3:
       error_message = "You submitted a score that would require throwing more than three darts.  Please try again."
     else:
-      if r.singles == 1 and r.doubles == 1 and r.triples == 1:
+      if thisround.singles == 1 and thisround.doubles == 1 and thisround.triples == 1:
         game.done = True
         game.shanghiwin = True
         game.winner = justshot.player
-      justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + r.singles + r.doubles + r.triples) / ((cr-9) * 3)), 4)
-      justshot.total += r.singles * cr + r.doubles * cr *2 + r.triples * cr * 3
-      ac = justshot.accuracy
+      justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + thisround.singles + thisround.doubles + thisround.triples)
+                                  / ((cr-9) * 3)), 4)
+      justshot.total += thisround.singles * cr + thisround.doubles * cr *2 + thisround.triples * cr * 3
       justshot.save()
-      r.save()
+      thisround.save()
       if cp == game.num_players:
         if cr > 20:
           game.done = True
@@ -68,23 +68,24 @@ def addScore(request,gameid):
   matrix.append(['Total'])
   for p in player_list: matrix[12].append(str(p.total) + " " + str(round((p.accuracy*100), 4)) + "%")
   current_player = player_list[cp-1]
-  return render_to_response('shanghigame.html', context_instance=RequestContext(request, {'player_list':player_list,
-                                                                                            'matrix':matrix,
-                                                                                            'game':game,
-                                                                                            'current_player':current_player,
-                                                                                            'error_message':error_message}))
+  return render_to_response('shanghigame.html', context_instance=RequestContext(request, 
+                                                                                {'player_list':player_list,
+                                                                                 'matrix':matrix,
+                                                                                 'game':game,
+                                                                                 'current_player':current_player,
+                                                                                 'error_message':error_message}))
 
 def Login(request):
   if request.method == 'POST':
     username = request.POST['username']
     password = request.POST['password']
     if email_re.search(username):
-      user  = User.objects.get(email=username.lower())
-      if user: username = user.username
+      user  = Usethisround.objects.get(email=username.lower())
+      if user: username = usethisround.username
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
-      name = user.first_name + " " + user.last_name[0] + "."
+      name = usethisround.first_name + " " + usethisround.last_name[0] + "."
     else:
       name = username 
   else:
@@ -107,7 +108,7 @@ def Undo(request,gameid):
     cr = cr-1
   else:
     cp = cp-1
-  redo = game.players.all().filter(player_num=cp)[0]
+  redo = game.players.all().filter(player_number=cp)[0]
   theround = redo.rounds.all().filter(round_number=cr)[0]
   if cr == 10:
     redo.accuracy = 0
@@ -126,9 +127,9 @@ def Undo(request,gameid):
   return redirect('games.views.addScore', gameid=gameid)
 
 def SetUpShanghi(request):
-  if request.user.is_authenticated() == False:
+  if request.usethisround.is_authenticated() == False:
     return render_to_response('notloggedin.html', context_instance=RequestContext(request, {})) 
-  player_list = User.objects.all().order_by('first_name')
+  player_list = Usethisround.objects.all().order_by('first_name')
   return render_to_response('creategame.html', context_instance=RequestContext(request,
                                                                               {'player_list':player_list
                                                                                 }))
@@ -140,28 +141,28 @@ def CreateShanghi(request):
   player4 = request.POST['player4']
   player5 = request.POST['player5']
   name = request.POST['name']
-  p1 = User.objects.all().filter(id=player1)[0]
-  p2 = User.objects.all().filter(id=player2)[0]
+  p1 = Usethisround.objects.all().filter(id=player1)[0]
+  p2 = Usethisround.objects.all().filter(id=player2)[0]
   player_list = [p1, p2]
   if player3 != "": 
-    p3 = User.objects.all().filter(id=player3)[0]
+    p3 = Usethisround.objects.all().filter(id=player3)[0]
     player_list.append(p3)
   if player4 != "":
-    p4 = User.objects.all().filter(id=player4)[0]
+    p4 = Usethisround.objects.all().filter(id=player4)[0]
     player_list.append(p4)
   if player5 != "":
-    p5 = User.objects.all().filter(id=player5)[0]
+    p5 = Usethisround.objects.all().filter(id=player5)[0]
     player_list.append(p5)
   newgame = ShanghiGame(name=name, num_players=len(player_list))
   newgame.save()
   playernum=1
   for p in player_list:
-    x = ShanghiPlayer(player=p, game=newgame, player_num=playernum)
+    x = ShanghiPlayer(player=p, game=newgame, player_number=playernum)
     playernum += 1
     x.save()
     for i in range(0,12):
       r = ShanghiRound(round_number=i+10, shanghiplayer=x)
-      r.save()
+      thisround.save()
   return redirect('games.views.addScore', gameid=newgame.id)
 
 def Stats(request):
@@ -175,7 +176,7 @@ def Stats(request):
   total_doubles = []
   total_triples= []
   total_wins = []
-  for u in User.objects.all():
+  for u in Usethisround.objects.all():
     total = 0
     highest = 0
     accuracy = 0.0
@@ -188,13 +189,13 @@ def Stats(request):
         total += s.total
         accuracy += float(s.accuracy)
       for r in s.rounds.all():
-        if r.round_number == 21:
-          bulls += r.singles
-          bulls += (r.doubles * 2)
+        if thisround.round_number == 21:
+          bulls += thisround.singles
+          bulls += (thisround.doubles * 2)
         else:
-          singles += r.singles
-          doubles += r.doubles
-          triples += r.triples
+          singles += thisround.singles
+          doubles += thisround.doubles
+          triples += thisround.triples
       if s.total > highest and not s.game.shanghiwin: highest = s.total
     hits = singles + doubles * 2 + triples * 3
     wins = len(u.shanghigames_won.all())
