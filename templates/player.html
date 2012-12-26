@@ -9,6 +9,7 @@
     var xPadding = 30;
     var yPadding = 30;
     
+    DATE
     var data = { values:[
       {% for x in scores %}
       { X: {{ x.0.date.year }}, Y: {{ x.1 }}},
