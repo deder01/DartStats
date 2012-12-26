@@ -81,11 +81,11 @@ def Login(request):
     password = request.POST['password']
     if email_re.search(username):
       user  = User.objects.get(email=username.lower())
-      if user: username = usethisround.username
+      if user: username = user.username
     user = authenticate(username=username, password=password)
     if user is not None:
       login(request, user)
-      name = usethisround.first_name + " " + usethisround.last_name[0] + "."
+      name =user.first_name + " " + user.last_name[0] + "."
     else:
       name = username 
   else:
