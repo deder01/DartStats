@@ -30,8 +30,8 @@ def addScore(request,gameid):
         game.done = True
         game.shanghiwin = True
         game.winner = justshot.player
-      justshot.accuracy = round(((justshot.accuracy * (cr-10) * 3 + thisround.singles + thisround.doubles + thisround.triples)
-                                  / ((cr-9) * 3)), 4)
+      justshot.accuracy = str(round(((justshot.accuracy * (cr-10) * 3 + thisround.singles + thisround.doubles +
+        thisround.triples) / ((cr-9) * 3)), 4))
       justshot.total += thisround.singles * cr + thisround.doubles * cr *2 + thisround.triples * cr * 3
       justshot.save()
       thisround.save()
@@ -114,7 +114,8 @@ def Undo(request,gameid):
     redo.accuracy = 0
     redo.total=0
   else:
-    redo.accuracy = round((redo.accuracy * (cr-9) * 3 - theround.singles - theround.doubles - theround.triples) / ((cr-10) * 3),4)
+    redo.accuracy = str(round((redo.accuracy * (cr-9) * 3 - theround.singles - theround.doubles - theround.triples) /
+      ((cr-10) * 3),4))
     redo.total = redo.total - (theround.singles * cr) - (theround.doubles * 2 * cr) - (theround.triples * 3 * cr)
   theround.singles=0
   theround.doubles=0
@@ -161,7 +162,7 @@ def CreateShanghi(request):
     playernum += 1
     x.save()
     for i in range(0,12):
-      r = ShanghiRound(round_number=i+10, shanghiplayer=x)
+      thisround = ShanghiRound(round_number=i+10, shanghiplayer=x)
       thisround.save()
   return redirect('games.views.addScore', gameid=newgame.id)
 
