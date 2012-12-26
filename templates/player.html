@@ -11,7 +11,7 @@
     
     var data = { values:[
       {% for x in scores %}
-      { X: {{ x.0.date.year }}, Y: {{ x.1 }}},
+      { X: {{ x.0.date.month}} + {{ x.0.yea}} {, Y: {{ x.1 }}},
       {% endfor %}
     ]};
 
@@ -64,7 +64,7 @@
         c.textAlign = "right"
         c.textBaseline = "middle";
         
-        for(var i = 0; i < getMaxY(); i += 10) {
+        for(var i = 0; i < getMaxY(); i += 50) {
             c.fillText(i, xPadding - 10, getYPixel(i));
         }
         
