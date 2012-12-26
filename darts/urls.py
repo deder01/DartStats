@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^stats/$', 'games.views.Stats'),
     url(r'^creategame/makenewgame$', 'games.views.CreateShanghi'),
     url(r'^previousgames/$', 'games.views.History'),
-    url(r'^player/(?P<playerid>\d+)$', 'games.views.Player'),
+    url(r'^player/$', 'games.views.Player'),
 )
