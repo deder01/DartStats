@@ -248,7 +248,7 @@ def History(request):
 def Player(request, playerid):
   player = User.objects.all().filter(id=playerid)[0]
   scores = []
-  for x in player.shanghigames.all():
+  for x in player.shanghigames.all().order_by('game__gametime'):
     scores.append([x.game.gametime, x.total])
   return render_to_response('player.html', context_instance=RequestContext(request,{'scores':scores,
                             'player':player,}))
