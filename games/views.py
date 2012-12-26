@@ -248,7 +248,7 @@ def History(request):
 
 def Player(request):
   if request.user.is_authenticated() == False:
-    return redirect('games.views.Home')
+    return render_to_response('notloggedin.html', context_instance=RequestContext(request, {})) 
   player = request.user
   scores = []
   for x in player.shanghigames.all().order_by('game__gametime'):
