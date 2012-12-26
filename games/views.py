@@ -4,6 +4,7 @@ from django.shortcuts import *
 from django.template.context import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.core.validators import email_re
+from calendar import *
 from models import *
 from forms import *
 from operator import itemgetter
@@ -258,6 +259,6 @@ def Player(request):
       total += x.total
     size = 1
     if len(thismonth) != 0: size = len(thismonth)
-    scores.append([i, round(total/size, 2)])
+    scores.append([month_name[i][:3], round(total/size, 2)])
   return render_to_response('player.html', context_instance=RequestContext(request,{'scores':scores,
                             'player':player,}))

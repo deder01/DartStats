@@ -6,8 +6,8 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
 <script>
     var graph;
-    var xPadding = 30;
-    var yPadding = 30;
+    var xPadding = 40;
+    var yPadding = 40;
     
     var data = { values:[
       {% for x in scores %}
@@ -93,6 +93,6 @@
 
 {% block content %}
   <h2>{{ player.first_name }}</h2>
-  <canvas id="graph" width="300" height="300">   
+  <canvas id="graph" width="400" height="400">   
   </canvas> 
 {% endblock %}
