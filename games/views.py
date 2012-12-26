@@ -260,5 +260,6 @@ def Player(request):
     size = 1
     if len(thismonth) != 0: size = len(thismonth)
     scores.append([month_name[i][:3], round(total/size, 2)])
+  scores.insert(0, scores.pop(11))
   return render_to_response('player.html', context_instance=RequestContext(request,{'scores':scores,
                             'player':player,}))
