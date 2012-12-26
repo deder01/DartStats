@@ -11,7 +11,7 @@
     
     var data = { values:[
       {% for x in scores %}
-      { X:{{ x.0.date.month}}, Y:{{ x.1 }}},
+      { X:{{ x.0.date.month}} + {{ x.0.date.day }}, Y:{{ x.1 }}},
       {% endfor %}
     ]};
 
