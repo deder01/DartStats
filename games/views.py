@@ -244,3 +244,11 @@ def History(request):
   all_games = ShanghiGame.objects.all().order_by('-id')
   return render_to_response('history.html', context_instance=RequestContext(request, {'all_games':all_games,
                                                                                       }))
+
+def Player(request, playerid):
+  player = User.objects.all().filter(id=playerid)[0]
+  scores = []
+  for x in player.shanghigames.all():
+    scores.append([x.game.gametime, x.total])
+  return render_to_response('player.html', context_instance=RequestContext(request,{'scores':scores,
+                            'player':player,}))
