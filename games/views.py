@@ -251,7 +251,13 @@ def Player(request):
     return render_to_response('notloggedin.html', context_instance=RequestContext(request, {})) 
   player = request.user
   scores = []
-  for x in player.shanghigames.all().order_by('game__gametime'):
-    scores.append([x.game.gametime, x.total])
+  for i in range(1, 13):
+    thismonth = player.shanghigames.all().filter(game__gametime__month=i)
+    total = 0
+    for x in thismonth:
+      total += x.total
+    size = 1
+    if len(thismonth) != 0: size = len(thismonth)
+    scores.append([i, round(total/size, 2)])
   return render_to_response('player.html', context_instance=RequestContext(request,{'scores':scores,
                             'player':player,}))
