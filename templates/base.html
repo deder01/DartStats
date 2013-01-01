@@ -26,7 +26,7 @@
               <li><a href="/creategame/">Create a Game</a></li>
               <li><a href="/previousgames/">Previous Games</a></li>
               <li><a href="/stats/">Stats</a></li>
-              <li><a href="/player/">My Progresion</a></li>
+              <li><a href="/player/">My Profile</a></li>
             </ul>
             {% if request.user.is_authenticated %}
             <form action="/logout" method="post" class="navbar-form pull-right">{% csrf_token %}
