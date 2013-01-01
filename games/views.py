@@ -229,7 +229,7 @@ def Stats(request):
   for a in average_accuracy:
     a[1] = str(a[1]) + "%"
   for w in total_wins:
-    w[2] = str(w[2]) + "%"
+    w[3] = str(w[3]) + "%"
   return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score,
