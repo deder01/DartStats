@@ -213,7 +213,7 @@ def Stats(request):
     total_singles.append([u.first_name + " " + u.last_name[0] + ".", round(float(singles)/float(games),1), singles])
     total_doubles.append([u.first_name + " " + u.last_name[0] + ".", round(float(doubles)/float(games),1), doubles])
     total_triples.append([u.first_name + " " + u.last_name[0] + ".", round(float(triples)/float(games),1), triples])
-    total_wins.append([u.first_name + " " + u.last_name[0] + ".", wins+loses, round(float(wins)/float(games), 4) * 100, wins, loses])
+    total_wins.append([u.first_name + " " + u.last_name[0] + ".", wins+loses,  wins, round(float(wins)/float(games), 4) * 100])
 
   high_score.sort(key=itemgetter(1, 0), reverse=True)
   total_points.sort(key=itemgetter(1, 0), reverse=True)
@@ -225,7 +225,7 @@ def Stats(request):
   total_doubles.sort(key=itemgetter(1, 0), reverse=True)
   total_triples.sort(key=itemgetter(1, 0), reverse=True)
   total_wins.sort(key=itemgetter(0))
-  total_wins.sort(key=itemgetter(2, 1, 3, 4), reverse=True)
+  total_wins.sort(key=itemgetter(2, 1, 3), reverse=True)
   for a in average_accuracy:
     a[1] = str(a[1]) + "%"
   for w in total_wins:
