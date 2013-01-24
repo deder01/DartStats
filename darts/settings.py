@@ -87,6 +87,8 @@ SECRET_KEY = '^rx6!e$-&amp;tyei2q+%(_vxkosqgoh%kekkw%$$hj11+eagnuqwr'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'djaml.loaders.DjamlFilesystemLoader',
+    'djaml.loaders.DjamlAppDirectoriesLoader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
      'django.template.loaders.eggs.Loader',

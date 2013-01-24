@@ -12,6 +12,10 @@ from operator import itemgetter
 def Home(request):
   return render_to_response('index.html', context_instance=RequestContext(request, {}))
 
+def Test(request):
+  return render_to_response('stats.hamlpy', context_instance=RequestContext(request, {}))
+
+
 def addScore(request,gameid):
   game = ShanghiGame.objects.all().filter(id=gameid)[0]
   player_list = game.players.all().order_by('player_number')
