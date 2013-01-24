@@ -27,13 +27,15 @@ def addScore(request,gameid):
     if (thisround.singles + thisround.doubles + thisround.triples) > 3:
       error_message = "You submitted a score that would require throwing more than three darts.  Please try again."
     else:
+      value = cr
+      if cr == 21: value = 25
       if thisround.singles == 1 and thisround.doubles == 1 and thisround.triples == 1:
         game.done = True
         game.shanghiwin = True
         game.winner = justshot.player
       justshot.accuracy = str(round(((justshot.accuracy * (cr-10) * 3 + thisround.singles + thisround.doubles +
         thisround.triples) / ((cr-9) * 3)), 4))
-      justshot.total += thisround.singles * cr + thisround.doubles * cr *2 + thisround.triples * cr * 3
+      justshot.total += thisround.singles * value + thisround.doubles * value *2 + thisround.triples * value * 3
       justshot.save()
       thisround.save()
       if cp == game.num_players:
