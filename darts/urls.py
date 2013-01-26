@@ -7,7 +7,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'games.views.Test'),
+    url(r'^$', 'games.views.Home'),
     url(r'^shanghigames/(?P<gameid>\d+)$', 'games.views.addScore'),
     url(r'^shanghigames/undo/(?P<gameid>\d+)$', 'games.views.Undo'),
     url(r'^login$', 'games.views.Login'),

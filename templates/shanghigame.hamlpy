@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if game.done %}
+%h1 Winner is 
+{% if game.shanghiwin %}
+%h1 And it's a Shanghi!!!
+{% endif %}
+{% else %}
+{%if game.current_round == 21 %}
+%h1 Round: Bullseyes
+{% else %}
+%h1 Round: 
+{% endif %}
+%h1 Player: 
+/ Start of entering score
+.span6
+  %form.span4.score_option.score_form{:action => "", :method => "post"}
+    {% csrf_token %}
+    .span4.score_option
+      Singles
+      %label.radio.inline
+        %input#singles{:checked => "", :name => "singles", :type => "radio", :value => "0"}
+          0
+      %label.radio.inline
+        %input#singles1{:name => "singles", :type => "radio", :value => "1"}
+          1
+      %label.radio.inline
+        %input#singles2{:name => "singles", :type => "radio", :value => "2"}
+          2
+      %label.radio.inline
+        %input#singles3{:name => "singles", :type => "radio", :value => "3"}
+          3
+    .span4.score_option
+      Doubles
+      %label.radio.inline
+        %input#doubles0{:checked => "", :name => "doubles", :type => "radio", :value => "0"}
+          0
+      %label.radio.inline
+        %input#doubles1{:name => "doubles", :type => "radio", :value => "1"}
+          1
+      %label.radio.inline
+        %input#doubles2{:name => "doubles", :type => "radio", :value => "2"}
+          2
+      %label.radio.inline
+        %input#doubles3{:name => "doubles", :type => "radio", :value => "3"}
+          3
+    .span4.score_option
+      Triples
+      %label.radio.inline
+        %input#triples0{:checked => "", :name => "triples", :type => "radio", :value => "0"}
+          0
+      %label.radio.inline
+        %input#triples1{:name => "triples", :type => "radio", :value => "1"}
+          1
+      %label.radio.inline
+        %input#triples2{:name => "triples", :type => "radio", :value => "2"}
+          2
+      %label.radio.inline
+        %input#triples3{:name => "triples", :type => "radio", :value => "3"}
+          3
+    %input{:type => "submit", :value => "Submit"}/
+  / End of entering score
+  / Start of score
+  .span2
+    %form.span4{:action => "undo/", :method => "post"}
+      {% csrf_token %}
+      %input{:type => "submit", :value => "Undo"}/
+  {% endif %}
+  %table.table
+    %th Round
+    {% for p in player_list %}
+    %th 
+    {% endfor %}
+    {% for row in matrix%}
+    %tr
+      {% for c in row  %}
+      %td 
+      {% endfor %}
+    {% endfor %}
+  / End of score
+  {% endblock %}

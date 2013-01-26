@@ -10,10 +10,7 @@ from forms import *
 from operator import itemgetter
 
 def Home(request):
-  return render_to_response('index.html', context_instance=RequestContext(request, {}))
-
-def Test(request):
-  return render_to_response('stats.hamlpy', context_instance=RequestContext(request, {}))
+  return render_to_response('index.hamlpy', context_instance=RequestContext(request, {}))
 
 
 def addScore(request,gameid):
@@ -75,7 +72,7 @@ def addScore(request,gameid):
   matrix.append(['Total'])
   for p in player_list: matrix[12].append(str(p.total) + " " + str(round((p.accuracy*100), 4)) + "%")
   current_player = player_list[cp-1]
-  return render_to_response('shanghigame.html', context_instance=RequestContext(request, 
+  return render_to_response('shanghigame.hamlpy', context_instance=RequestContext(request, 
                                                                                 {'player_list':player_list,
                                                                                  'matrix':matrix,
                                                                                  'game':game,
@@ -236,7 +233,7 @@ def Stats(request):
     a[1] = str(a[1]) + "%"
   for w in total_wins:
     w[3] = str(w[3]) + "%"
-  return render_to_response('stats.html', context_instance=RequestContext(request, {'high_score':high_score,
+  return render_to_response('stats.hamlpy', context_instance=RequestContext(request, {'high_score':high_score,
                                                                                     'total_points':total_points,
                                                                                     'average_score':average_score,
                                                                                     'average_accuracy':average_accuracy,

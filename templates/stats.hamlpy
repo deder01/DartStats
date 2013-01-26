@@ -1,4 +1,100 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>HELLO WOLRD</h1>
-{% endblock %}
+-block content
+  .span9
+    %h2 Wins
+    %table.table
+      %th Player
+      %th Games
+      %th Wins
+      %th Win Percentage
+      -for row in total_wins
+        %tr
+        -for c in row
+          %td {{ c }}
+  .span3
+    %h2 High Score
+    %table.table
+      %th Player
+      %th Score
+      -for row in high_score
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Average Score
+    %table.table
+      %th Player
+      %th Score
+      -for row in average_score
+       %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Total Points
+    %table.table
+      %th Player
+      %th Score
+      -for row in total_points
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Accuracy
+    %table.table
+      %th Player
+      %th Accuracy
+      -for row in average_accuracy
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Hits (Not Bulls)
+    %table.table
+      %th Player
+      %th Dart
+      %th Game
+      -for row in total_hits
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Bullseyes
+    %table.table
+      %th Player
+      %th Per Game
+      %th Total
+      -for row in total_bulls
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Singles
+    %table.table
+      %th Player
+      %th Average
+      %th Total
+      -for row in total_singles
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Doubles
+    %table.table
+      %th Player
+      %th Average
+      %th Total
+      -for row in total_doubles
+        %tr
+        -for c in row
+          %td {{c}} 
+  .span3
+    %h2 Triples
+    %table.table
+      %th Player
+      %th Average
+      %th Total
+      -for row in total_triples
+        %tr
+        -for c in row
+          %td {{c}} 
+

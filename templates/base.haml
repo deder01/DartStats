@@ -1,0 +1,77 @@
+!!!
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}
+      %link{:href => "/static/img/dartsicon.jpg", :rel => "shortcut icon"}
+      %title
+        -block title
+          53 Packard Darts
+      %link{:href => "/static/css/bootstrap.css", :rel => "stylesheet"}
+        %link{:href => "/static/css/bootstrap-responsive.css", :rel => "stylesheet"}
+          %link{:href => "/static/css/style.css", :rel => "stylesheet"}
+  %body
+    /
+      NAVBAR
+      \==================================================
+    .container.navbar-wrapper
+      .navbar.navbar-inverse
+        .navbar-inner
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "/"} Home
+          .nav-collapse.collapse
+            %ul.nav
+              %li
+                %a{:href => "/creategame/"} Create a Game
+              %li
+                %a{:href => "/previousgames/"} Previous Games
+              %li
+                %a{:href => "/stats/"} Stats
+              %li
+                %a{:href => "/player/"} My Profile
+            {% if request.user.is_authenticated %}
+            %form.navbar-form.pull-right{:action => "/logout", :method => "post"}
+              {% csrf_token %}
+              %button.btn{:type => "submit"} Logout
+              {% else %}
+              %form.navbar-form.pull-right{:action => "/login", :method => "post"}
+                {% csrf_token %}
+                %input#username.span2{:name => "username", :placeholder => "Username", :type => "text"}
+                  %input#password.span2{:name => "password", :placeholder => "Password", :type => "password"}
+                    %button.btn{:type => "submit"} Sign in
+                    {% endif %}
+          / /.nav-collapse
+        / /.navbar-inner
+      / /.navbar
+    / /.container
+    / Container for main content
+    #content.container
+      -block content
+    /
+      Le javascript
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    / jQuery via Google + local fallback, see h5bp.com
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    :javascript
+      window.jQuery || document.write('<\/script>')
+      
+      
+          
+      
+      
+          
+          
+      
+      		
+      			// Activate Google Prettify in this page
+      			addEventListener('load', prettyPrint, false);
+      		
+      			$(document).ready(function(){
+      
+      				// Add prettyprint class to pre elements
+      					$('pre').addClass('prettyprint');
+      								
+      			}); // end document.ready

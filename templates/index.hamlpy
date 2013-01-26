@@ -1,0 +1,4 @@
+{% extends "base.hamlpy" %}
+
+-block content
+  <h1> 53 Packard Darts.  It's on.</h1>
